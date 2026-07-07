@@ -4,3 +4,7 @@ defaultTargets = ["Sorting"]
 
 [[lean_lib]]
 name = "Sorting"
+
+[[lean_exe]]
+name = "benchmark"
+root = "Benchmark"
