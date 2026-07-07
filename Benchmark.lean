@@ -8,10 +8,11 @@ def valueBound : Nat := 1000000
 
 /-- Sorting algorithms to test, along with a display label. -/
 def algorithms : List (String × (List Nat → List Nat)) := [
-  ("Selection Sort", selectionSort),
   ("Insertion Sort", insertionSort),
   ("Merge Sort"    , mergeSort),
   ("Quick Sort"    , quickSort),
+  ("Selection Sort", selectionSort),
+  ("Std Sort"      , stdSort),
 ]
 
 def randomList (n : Nat) : IO (List Nat) := do

@@ -59,6 +59,14 @@ A list is sorted if and only if:
 theorem cons_isSorted_iff' {ls : List α} {a b : α}
 : isSorted (a :: b :: ls) ↔ a ≤ b ∧ isSorted (b :: ls) := by grind
 
+/-- A list is sorted if and only if:
+  1) All elements with earlier indices are less than all elements later indicies.
+-/
+theorem pairwise_isSorted_iff {ls : List α} : ls.Pairwise (· ≤ ·) ↔ isSorted ls := by
+  induction ls with
+  | nil => grind [List.Pairwise.nil]
+  | cons a tail h_induct => grind [List.pairwise_cons]
+
 /-- If a list is sorted, the tail of the list is also sorted. -/
 theorem tail_isSorted {ls : List α} {a : α} (h_sorted : isSorted (a :: ls))
 : isSorted ls := by grind
