@@ -14,7 +14,7 @@ inserts a value into a list just before the first element that is less than or e
 E.g., `insertBeforeLE [2, 1, 4] 3 == [2, 1, 3, 4]`.
 -/
 @[grind]
-def insertBeforeLE (ls : List α) (a : α) : List α :=
+private def insertBeforeLE (ls : List α) (a : α) : List α :=
   ls.insertIdx (ls.findIdx (a ≤ ·)) a
 
 /-- Sort a list using the insertion sort algorithm. -/
@@ -40,7 +40,7 @@ theorem insertionSort_Perm {ls : List α} : (insertionSort ls).Perm ls := by
   | nil => trivial
   | cons b tail h_induct => grind [List.perm_insertIdx]
 
-theorem insertBeforeLE_isSorted {ls : List α} {a : α} (h_sorted : isSorted ls)
+private theorem insertBeforeLE_isSorted {ls : List α} {a : α} (h_sorted : isSorted ls)
 : isSorted (insertBeforeLE ls a) := by
   induction ls with
   | nil => trivial
@@ -58,6 +58,6 @@ theorem insertionSort_isSorted {ls : List α} : isSorted (insertionSort ls) := b
 #           Correctness Result
 ==============================-/
 
-theorem insertonSort_correct {ls : List α}
+theorem insertionSort_correct {ls : List α}
 : isSorted (insertionSort ls) ∧ (insertionSort ls).Perm ls :=
   ⟨insertionSort_isSorted, insertionSort_Perm⟩

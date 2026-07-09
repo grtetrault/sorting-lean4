@@ -15,7 +15,7 @@ E.g., `splitInTwo [1, 2, 3] == ([1], [2, 3])`
 and `splitInTwo [1, 2, 3, 4] == ([1, 2], [3, 4])`.
 -/
 @[grind]
-def splitInTwo (ls : List α) : List α × List α := ls.splitAt (ls.length / 2)
+private def splitInTwo (ls : List α) : List α × List α := ls.splitAt (ls.length / 2)
 
 /-- Sort a list using the merge sort algorithm. -/
 @[grind]
