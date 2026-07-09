@@ -8,7 +8,7 @@ variable {α : Type u} [Sortable α]
 #                  Definitions
 ==============================-/
 
-/-- Sort a list using the standard libarry merge sort algorithm. -/
+/-- Sort a list using the standard library merge sort algorithm. -/
 @[grind]
 def stdSort (ls : List α) : List α := ls.mergeSort
 

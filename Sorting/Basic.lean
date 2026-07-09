@@ -60,7 +60,7 @@ theorem cons_isSorted_iff' {ls : List α} {a b : α}
 : isSorted (a :: b :: ls) ↔ a ≤ b ∧ isSorted (b :: ls) := by grind
 
 /-- A list is sorted if and only if:
-  1) All elements with earlier indices are less than all elements later indicies.
+  1) All elements with earlier indices are less than all elements later indices.
 -/
 theorem pairwise_isSorted_iff {ls : List α} : ls.Pairwise (· ≤ ·) ↔ isSorted ls := by
   induction ls with

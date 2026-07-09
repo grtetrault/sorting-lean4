@@ -41,21 +41,21 @@ def main : IO Unit := do
   for (label, sortAlgorithm) in algorithms do
     let start := ← IO.monoNanosNow
 
-    -- Compute a checksum so the coompiler cannot discard the sort.
+    -- Compute a checksum so the compiler cannot discard the sort.
     let sorted := benchmarkData.map sortAlgorithm
     let checksum := ← IO.lazyPure fun _ => sorted.flatten.foldr (· + ·) 0
     checksums := checksum :: checksums
 
     let stop := ← IO.monoNanosNow
 
-    let totMilli : Float := (stop - start).toFloat / 1e6
-    let avgMilli := totMilli / numTrials.toFloat
+    let totMs : Float := (stop - start).toFloat / 1e6
+    let avgMs := totMs / numTrials.toFloat
     IO.print s!"{String.ofList (label.toList.rightpad 15 ' ')}  "
-    IO.print s!"{String.ofList (totMilli.toString.toList.leftpad 13 ' ')}  "
-    IO.print s!"{String.ofList (avgMilli.toString.toList.leftpad 15 ' ')}"
+    IO.print s!"{String.ofList (totMs.toString.toList.leftpad 13 ' ')}  "
+    IO.print s!"{String.ofList (avgMs.toString.toList.leftpad 15 ' ')}"
     IO.println ""
 
   -- Make sure checksums are all the same as a sanity check.
-  let gaurd := decide (checksums.Pairwise (· = ·))
+  let guard := decide (checksums.Pairwise (· = ·))
   IO.println s!""
-  IO.println s!"Checksum gaurd passed: {gaurd}"
+  IO.println s!"Checksum guard passed: {guard}"
