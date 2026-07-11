@@ -39,14 +39,14 @@ def main : IO Unit := do
   -- For each algorithm, time against all benchmarks and report.
   let mut checksums : List Nat := []
   for (label, sortAlgorithm) in algorithms do
+    -- Time sorting all pre-generated benchmark lists.
     let start := ← IO.monoNanosNow
-
-    -- Compute a checksum so the compiler cannot discard the sort.
-    let sorted := benchmarkData.map sortAlgorithm
-    let checksum := ← IO.lazyPure fun _ => sorted.flatten.foldr (· + ·) 0
-    checksums := checksum :: checksums
-
+    let sorted := ← IO.lazyPure fun _ => benchmarkData.map sortAlgorithm
     let stop := ← IO.monoNanosNow
+
+    -- Compute a checksum as a verification on sort results.
+    let checksum := sorted.flatten.foldr (· + ·) 0
+    checksums := checksum :: checksums
 
     let totMs : Float := (stop - start).toFloat / 1e6
     let avgMs := totMs / numTrials.toFloat
